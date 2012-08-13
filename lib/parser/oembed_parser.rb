@@ -50,10 +50,12 @@ module Widgetify
 
     def response_type_not_present
       api = API_END_POINTS[@options[:provider].to_sym]
-      @link = api[api.length - 1] == '.' ? api.to_s+@options[:format] : api.to_s+"?url="+@options[:url]
-      @link +=  "?url="+@options[:url] if @link.include?('json') || @link.include?('xml')
-      @link += "&format=" + @options[:format] if @options[:format] && api.scan(@options[:format])
-      get_proper_response(@options[:format])
+      if api
+        @link = api[api.length - 1] == '.' ? api.to_s+@options[:format] : api.to_s+"?url="+@options[:url]
+        @link +=  "?url="+@options[:url] if @link.include?('json') || @link.include?('xml')
+        @link += "&format=" + @options[:format] if @options[:format] && api.scan(@options[:format])
+        get_proper_response(@options[:format])
+      end
     end
 
     def get_proper_response(type)
