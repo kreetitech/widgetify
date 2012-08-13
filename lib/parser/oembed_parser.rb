@@ -20,7 +20,8 @@ module Widgetify
     :ifixit => 'http://www.ifixit.com/Embed',
     :smugmug => 'http://api.smugmug.com/services/oembed/',
     :slideshare => 'http://www.slideshare.net/api/oembed/2',
-    :wordpress => 'http://public-api.wordpress.com/oembed/1.0/'
+    :wordpress => 'http://public-api.wordpress.com/oembed/1.0/',
+    :quickmeme => 'http://api.embed.ly/1/oembed'
   }
   class OembedParser < Parser
     def initialize(html_doc, options = {})
@@ -51,8 +52,6 @@ module Widgetify
       api = API_END_POINTS[@options[:provider].to_sym]
       @link = api[api.length - 1] == '.' ? api.to_s+@options[:format] : api.to_s+"?url="+@options[:url]
       @link +=  "?url="+@options[:url] if @link.include?('json') || @link.include?('xml')
-      @link += "&maxwidth=" + @options[:maxwidth] if @options[:maxwidth]
-      @link += "&maxheight=" + @options[:maxheight] if @options[:maxheight]
       @link += "&format=" + @options[:format] if @options[:format] && api.scan(@options[:format])
       get_proper_response(@options[:format])
     end
@@ -69,6 +68,7 @@ module Widgetify
     def get_json
       @link += "&maxwidth=" + @options[:maxwidth] if @options[:maxwidth]
       @link += "&maxheight=" + @options[:maxheight] if @options[:maxheight]
+      p @link
       obj = open(@link){ |f| f.read}
       JSON.parse(obj).each{ |key, val| self[key] = val} if JSON.parse(obj)
     end
