@@ -67,12 +67,16 @@ module Widgetify
     ####   here the json response will be parsed
 
     def get_json
+      @link += "&maxwidth=" + @options[:maxwidth] if @options[:maxwidth]
+      @link += "&maxheight=" + @options[:maxheight] if @options[:maxheight]
       obj = open(@link){ |f| f.read}
       JSON.parse(obj).each{ |key, val| self[key] = val} if JSON.parse(obj)
     end
 
   ###########  here the xml response will be parsed.
     def get_xml
+      @link += "&maxwidth=" + @options[:maxwidth] if @options[:maxwidth]
+      @link += "&maxheight=" + @options[:maxheight] if @options[:maxheight]
       xml = Nokogiri::XML(open(@link))
       xml.xpath('/oembed').children.each do |row|
         self[row.name] = row.text
