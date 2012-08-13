@@ -74,3 +74,4 @@ Usage
 *   smugmug
 *   slideshare
 *   wordpress
+*   quickmeme

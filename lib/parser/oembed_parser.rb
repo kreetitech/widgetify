@@ -68,7 +68,6 @@ module Widgetify
     def get_json
       @link += "&maxwidth=" + @options[:maxwidth] if @options[:maxwidth]
       @link += "&maxheight=" + @options[:maxheight] if @options[:maxheight]
-      p @link
       obj = open(@link){ |f| f.read}
       JSON.parse(obj).each{ |key, val| self[key] = val} if JSON.parse(obj)
     end
