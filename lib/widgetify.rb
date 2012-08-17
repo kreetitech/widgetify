@@ -4,6 +4,7 @@ require 'open-uri'
 require 'parser/oembed_parser'
 require 'parser/open_graph_parser'
 require 'parser/html_parser'
+require 'parser/twitter_parser'
 
 module Widgetify
 
@@ -29,6 +30,10 @@ module Widgetify
 
     def parse_html
       @parse_result['html'] = Widgetify::HTMLParser.new(@html_doc)
+    end
+
+    def parse_twitter
+      @parse_result['twitter'] = Widgetify::TwitterParser.new(@html_doc)
     end
 
     def parse_all

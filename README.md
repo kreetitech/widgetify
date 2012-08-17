@@ -3,7 +3,7 @@ Widgetify
 
 Description
 ------------
-Widgetify provides the functionality for dealing with parsing from a url. It can parse the Open Graph Protocol, Oembed URL and the HTML image tags. 
+Widgetify provides the functionality for dealing with parsing from a url. It can parse the Open Graph Protocol, Oembed URL, Twitter Protocol and the HTML image tags. 
 For Open Graph you can read more about the specification at [http://ogp.me](http://ogp.me) and for Oembed URL read more about the specification at [http://oembed.com/](http://oembed.com/) .
 
 Requirements
@@ -40,6 +40,14 @@ Usage
 
   widgetify.parse_result
 ```
+### For Twitter Parsing
+```
+  widgetify = Widgetify::Base.new(url, {}, :parse_twitter)
+  
+  widgetify.parse_result
+
+```
+
 ### For Html Parsing
 ```
   widgetify = Widgetify::Base.new(your_url, {}, :parse_html)
