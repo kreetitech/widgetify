@@ -83,3 +83,4 @@ Usage
 *   slideshare
 *   wordpress
 *   quickmeme
+*   twitter
