@@ -21,7 +21,8 @@ module Widgetify
     :smugmug => 'http://api.smugmug.com/services/oembed/',
     :slideshare => 'http://www.slideshare.net/api/oembed/2',
     :wordpress => 'http://public-api.wordpress.com/oembed/1.0/',
-    :quickmeme => 'http://api.embed.ly/1/oembed'
+    :quickmeme => 'http://api.embed.ly/1/oembed',
+    :twitter => 'https://api.twitter.com/1/statuses/oembed.'
   }
   class OembedParser < Parser
     def initialize(html_doc, options = {})
