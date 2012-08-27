@@ -20,6 +20,7 @@ module Widgetify
      self['canonical_url'] = canonical_url
      self['description'] = description
      self['images'] = images
+     self['img_src'] = img_src
    end
 
    private
@@ -30,6 +31,10 @@ module Widgetify
 
    def canonical_url
      look_for_href('rel', 'canonical')
+   end
+
+   def img_src
+     look_for_href('rel', 'image_src')
    end
 
    def images
