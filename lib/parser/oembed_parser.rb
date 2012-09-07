@@ -51,6 +51,7 @@ module Widgetify
 
     def response_type_not_present
       api = API_END_POINTS[@options[:provider].to_sym]
+      api = API_END_POINTS[:oembed] unless api
       if api
         @link = api[api.length - 1] == '.' ? api.to_s+@options[:format] : api.to_s+"?url="+@options[:url]
         @link +=  "?url="+@options[:url] if @link.include?('json') || @link.include?('xml')
