@@ -22,7 +22,8 @@ module Widgetify
     :slideshare => 'http://www.slideshare.net/api/oembed/2',
     :wordpress => 'http://public-api.wordpress.com/oembed/1.0/',
     :quickmeme => 'http://api.embed.ly/1/oembed',
-    :twitter => 'https://api.twitter.com/1/statuses/oembed.'
+    :twitter => 'https://api.twitter.com/1/statuses/oembed.',
+  #  :daily_show => 'http://api.embed.ly/1/oembed'
   }
   class OembedParser < Parser
     def initialize(html_doc, options = {})
@@ -50,8 +51,8 @@ module Widgetify
     end
 
     def response_type_not_present
-      api = API_END_POINTS[@options[:provider].to_sym]
-      api = API_END_POINTS[:oembed] unless api
+      api = API_END_POINTS[@options[:provider].to_sym] if @options[:provider]
+      api = API_END_POINTS[:embed] unless api
       if api
         @link = api[api.length - 1] == '.' ? api.to_s+@options[:format] : api.to_s+"?url="+@options[:url]
         @link +=  "?url="+@options[:url] if @link.include?('json') || @link.include?('xml')
