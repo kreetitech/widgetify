@@ -12,12 +12,13 @@ module Widgetify
     attr_reader :parse_result
 
     def initialize(url, options = {}, *args)
-      @content_type = open(url){|u| u.content_type}
+      open_url = open(url)
+      @content_type = open_url.content_type
       @parse_result = { }
       @options = options
       @options[:url] = url
       if @content_type.include?("text")
-        @html_doc = Nokogiri::HTML(open(url))
+        @html_doc = Nokogiri::HTML(open_url)
         parse_all if args.length == 0
         args.each{ |arg| send(arg.to_sym)} if args.length > 0
       elsif @content_type.include?("image")
