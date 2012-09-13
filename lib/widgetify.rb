@@ -12,12 +12,17 @@ module Widgetify
     attr_reader :parse_result
 
     def initialize(url, options = {}, *args)
-      @html_doc = Nokogiri::HTML(open(url))
+      @content_type = open(url){|u| u.content_type}
       @parse_result = { }
       @options = options
       @options[:url] = url
-      parse_all if args.length == 0
-      args.each{ |arg| send(arg.to_sym)} if args.length > 0
+      if @content_type.include?("text")
+        @html_doc = Nokogiri::HTML(open(url))
+        parse_all if args.length == 0
+        args.each{ |arg| send(arg.to_sym)} if args.length > 0
+      elsif @content_type.include?("image")
+        parse_image_url if args.include?("parse_image_url".to_sym)
+      end  
     end
 
     def parse_open_graph
@@ -40,6 +45,10 @@ module Widgetify
       parse_open_graph
       parse_oembed
       parse_html
+    end
+  
+    def parse_image_url
+      @parse_result['image'] = {:url => @options[:url], :type => "photo"} if @content_type.include?("image")
     end
   end
 end
