@@ -27,19 +27,19 @@ module Widgetify
     end
 
     def parse_open_graph
-      @parse_result['open_graph'] = Widgetify::OpenGraphParser.new(@html_doc)
+      @parse_result['open_graph'] = Widgetify::OpenGraphParser.new(@html_doc) if @content_type.include?("text")
     end
 
     def parse_oembed
-      @parse_result['oembed'] = Widgetify::OembedParser.new(@html_doc, @options)
+      @parse_result['oembed'] = Widgetify::OembedParser.new(@html_doc, @options) if @content_type.include?("text")
     end
 
     def parse_html
-      @parse_result['html'] = Widgetify::HTMLParser.new(@html_doc)
+      @parse_result['html'] = Widgetify::HTMLParser.new(@html_doc) if @content_type.include?("text")
     end
 
     def parse_twitter
-      @parse_result['twitter'] = Widgetify::TwitterParser.new(@html_doc)
+      @parse_result['twitter'] = Widgetify::TwitterParser.new(@html_doc) if @content_type.include?("text")
     end
 
     def parse_all
